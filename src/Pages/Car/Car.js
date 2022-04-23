@@ -17,6 +17,8 @@ const Car = (props) => {
 
     const param = useParams()
     const [car, setCar] = useState(null)
+    const dispatch = useDispatch()
+    const carCart = useSelector((store) => store.carSlicer.carCart)
 
     useEffect(() => {
         fetch(`https://625d73e74c36c753577540cb.mockapi.io/fejs2/api/c5-cars/${param.id}`)
@@ -128,8 +130,11 @@ const Car = (props) => {
                                         </div>
                                     </div>
                                     <button className='btn button-right-details-container'>
-                                        <div type="submit" className='button-right-details'>
-                                            Pilih mobil
+                                        <div type="submit" className='button-right-details' onClick={() => dispatch(carSlicer.actions.addCarToCart({id:car.id}))}>
+                                            {carCart === car.id
+                                                ? "Lanjutkan Pembayaran"
+                                                : 'Pilih mobil'
+                                            }
                                         </div>
                                     </button>
                                 </div>
@@ -138,8 +143,11 @@ const Car = (props) => {
                     </div>
                     <div className='button-center-container-outer'>
                         <button className='btn button-center-container'>
-                            <div type="submit" className='button-center'>
-                                Pilih mobil
+                            <div type="submit" className='button-center' onClick={() => dispatch(carSlicer.actions.addCarToCart({id:car.id}))}>
+                            {carCart === car.id
+                                ? "Lanjutkan Pembayaran"
+                                : 'Pilih mobil'
+                            }
                             </div>
                         </button>
                     </div>
